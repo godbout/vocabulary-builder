@@ -31,23 +31,7 @@
     <body>
         @include('_navbar')
 
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
-                </div>
-            @endif
-
-            <div class="content container">
-                @yield('content')
-            </div>
-        </div>
-        <div id="navbar-buffer"></div>
+        @yield('content')
     </body>
     <script src="/js/app.js"></script>
     <script src="/js/mousetrap.min.js"></script>

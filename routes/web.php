@@ -22,3 +22,5 @@ Route::resource('words', 'WordController', ['only' => [
 Route::get('/random', 'RandomController@index');
 
 Route::get('/flashcards', 'FlashcardController@index');
+
+Auth::routes();
