@@ -15,12 +15,18 @@ class CreateWordsTable extends Migration
     {
         Schema::create('words', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('word');
+            $table->unsignedInteger('user_id');
+            $table->string('spelling');
             $table->string('meaning');
-            $table->string('excerpt');
+            $table->longtext('excerpt');
             $table->string('from');
             $table->boolean('mastered');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
