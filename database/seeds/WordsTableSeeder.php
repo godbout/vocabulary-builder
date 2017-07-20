@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class WordsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UsersTableSeeder::class);
-        $this->call(WordsTableSeeder::class);
+        factory(App\Word::class, 69)->create([
+            'user_id' => 1,
+            'mastered' => 0,
+        ]);
     }
 }

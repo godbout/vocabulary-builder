@@ -22,3 +22,16 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Word::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => function () {
+            return factory(App\User::class)->create()->id;
+        },
+        'spelling' => $faker->word,
+        'meaning' => $faker->sentence(mt_rand(6, 15), true),
+        'excerpt' => $faker->paragraph(mt_rand(3, 9)),
+        'from' => $faker->name . ' — ' .implode(' ', array_map('ucfirst', $faker->words(mt_rand(3, 10)))),
+        'mastered' => $faker->boolean,
+    ];
+});

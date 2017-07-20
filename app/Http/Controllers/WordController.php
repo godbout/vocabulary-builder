@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Word;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
@@ -14,20 +15,24 @@ class WordController extends Controller
      */
     public function index(Request $request)
     {
-        $view = ($request->has('view') ? $request->input('view') : 'list');
+        if (Auth::check() === true) {
+            $query = Word::where('user_id', '=', Auth::id());
+        } else {
+            $query = Word::where('user_id', '=', 1);
+        }
 
         if ($request->has('search') === true) {
             $term = $request->input('search');
-            $words = Word::where('spelling', 'LIKE', '%' . $term . '%')
-                ->orWhere('excerpt', 'LIKE', '%' . $term . '%')
-                ->get();
-        } else {
-            $words = Word::all();
+            $query->where(function ($query) use ($term) {
+                $query->where('spelling', 'LIKE', '%' . $term . '%')
+                    ->orWhere('excerpt', 'LIKE', '%' . $term . '%');
+            });
         }
+
+        $words = $query->get();
 
         return view('words.index', [
             'words' => $words,
-            'view' => $view,
         ]);
     }
 
