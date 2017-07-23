@@ -67,6 +67,10 @@ class WordController extends Controller
     {
         $word = Word::find($id);
 
+        if (!$this->userCanSee($word)) {
+            return response('You are not allowed to see the words of others.', 403);
+        }
+
         return view('words.show', [
             'word' => $word,
         ]);
@@ -112,5 +116,18 @@ class WordController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function userCanSee(Word $word)
+    {
+        if (!Auth::check() && $word->user_id != 1) {
+            return false;
+        }
+
+        if (Auth::check() && (Auth::id() != $word->user_id)) {
+            return false;
+        }
+
+        return true;
     }
 }

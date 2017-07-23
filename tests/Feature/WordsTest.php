@@ -19,18 +19,28 @@ class WordsTest extends TestCase
      * @test
      * unauthenticated users can see demo words
      */
-    public function unauthenticated_users_can_only_see_demo_words()
+    public function unauthenticated_users_can_only_see_and_access_demo_words()
     {
         $this->get('/words')
             ->assertSee(url('/words/1'))
             ->assertDontSee(url('/words/70'));
+
+        $this->get('/words/1')
+            ->assertStatus(200);
+
+        $extraWord = factory(App\Word::class)->create([
+            'user_id' => 2,
+        ]);
+
+        $this->get("/words/{$extraWord->id}")
+            ->assertStatus(403);
     }
 
     /** 
      * @test
      * an authenticated user can only see his own words
      */
-    public function an_authenticated_user_can_only_see_his_own_words()
+    public function an_authenticated_user_can_only_see_and_access_his_own_words()
     {
         $this->be(App\User::find(2));
 
@@ -41,15 +51,12 @@ class WordsTest extends TestCase
         $this->get('/words')
             ->assertSee(url("/words/{$word->id}"))
             ->assertDontSee(url('/words/1'));
-    }
 
-    /** 
-     * @test
-     * a user authenticated or not cannot see the words of others
-     */
-    public function a_user_authenticated_or_not_cannot_see_the_words_of_others()
-    {
-        
+        $this->get("/words/{$word->id}")
+            ->assertStatus(200);
+            
+        $this->get('/words/1')
+            ->assertStatus(403);
     }
 
     /** 
