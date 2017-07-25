@@ -17,46 +17,87 @@ class WordsTest extends TestCase
 
     /** 
      * @test
-     * unauthenticated users can see demo words
+     * unauthenticated users can only see grid of demo words
      */
-    public function unauthenticated_users_can_only_see_and_access_demo_words()
+    public function unauthenticated_users_can_only_see_grid_of_demo_words()
     {
-        $this->get('/words')
-            ->assertSee(url('/words/1'))
-            ->assertDontSee(url('/words/70'));
+        $demoWord = App\Word::find(1);
 
-        $this->get('/words/1')
-            ->assertStatus(200);
-
-        $extraWord = factory(App\Word::class)->create([
-            'user_id' => 2,
+        $notDemoWord = factory(App\Word::class)->create([
+            'user_id' => 2
         ]);
 
-        $this->get("/words/{$extraWord->id}")
+        $this->get('/words')
+            ->assertSee(url($demoWord->path()))
+            ->assertDontSee(url($notDemoWord->path()));
+    }
+
+    /** 
+     * @test
+     * unauthenticated users can only access demo words
+     */
+    public function unauthenticated_users_can_only_access_demo_words()
+    {
+        $demoWord = App\Word::find(1);
+
+        $notDemoWord = factory(App\Word::class)->create([
+            'user_id' => 2
+        ]);
+
+        $this->get($demoWord->path())
+            ->assertStatus(200)
+            ->assertSee($demoWord->spelling);
+
+        $this->get($notDemoWord->path())
             ->assertStatus(403);
     }
 
     /** 
      * @test
-     * an authenticated user can only see his own words
+     * an authenticated user can only see grid of his own words
      */
-    public function an_authenticated_user_can_only_see_and_access_his_own_words()
+    public function an_authenticated_user_can_only_see_grid_of_his_own_words()
     {
-        $this->be(App\User::find(2));
+        $user = App\User::find(2);
+        $this->be($user);
 
-        $word = factory(App\Word::class)->create([
-            'user_id' => 2,
+        $userWord = factory(App\Word::class)->create([
+            'user_id' => $user->id,
+        ]);
+
+        $demoWord = factory(App\Word::class)->create([
+            'user_id' => 1,
         ]);
 
         $this->get('/words')
-            ->assertSee(url("/words/{$word->id}"))
-            ->assertDontSee(url('/words/1'));
+            ->assertSee(url($userWord->path()))
+            ->assertDontSee(url($demoWord->path()));
+    }
 
-        $this->get("/words/{$word->id}")
-            ->assertStatus(200);
-            
-        $this->get('/words/1')
+    /** 
+     * @test
+     * an authenticated user can only access his own words
+     */
+    public function an_authenticated_user_can_only_access_his_own_words()
+    {
+        $user = App\User::find(2);
+        $this->be($user);
+
+        $userWord = factory(App\Word::class)->create([
+            'user_id' => $user->id,
+        ]);
+
+        $demoWord = factory(App\Word::class)->create([
+            'user_id' => 1,
+        ]);
+
+        $this->get($userWord->path())
+            ->assertStatus(200)
+            ->assertSee($userWord->spelling);
+
+        $this->get($demoWord->path())
             ->assertStatus(403);
+        
     }
 
     /** 
