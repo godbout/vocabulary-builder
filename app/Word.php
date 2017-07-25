@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Word extends Model
 {
-    //
+    public function path()
+    {
+        return '/words/' . $this->id;
+    }
 }
