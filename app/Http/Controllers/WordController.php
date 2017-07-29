@@ -68,7 +68,7 @@ class WordController extends Controller
         $word = Word::find($id);
 
         if (!$this->userCanSee($word)) {
-            return response('You are not allowed to see the words of others.', 403);
+            return redirect('words');
         }
 
         return view('words.show', [

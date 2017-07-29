@@ -49,7 +49,7 @@ class WordsTest extends TestCase
             ->assertSee($demoWord->spelling);
 
         $this->get($notDemoWord->path())
-            ->assertStatus(403);
+            ->assertRedirect('/words');
     }
 
     /** 
@@ -96,8 +96,7 @@ class WordsTest extends TestCase
             ->assertSee($userWord->spelling);
 
         $this->get($demoWord->path())
-            ->assertStatus(403);
-        
+            ->assertRedirect('/words');
     }
 
     /** 
