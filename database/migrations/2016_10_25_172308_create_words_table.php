@@ -20,7 +20,7 @@ class CreateWordsTable extends Migration
             $table->string('meaning');
             $table->longtext('excerpt');
             $table->string('from');
-            $table->boolean('mastered');
+            $table->boolean('mastered')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')
