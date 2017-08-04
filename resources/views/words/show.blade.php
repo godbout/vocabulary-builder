@@ -3,6 +3,8 @@
 @section('title', 'the word — take good care of it')
 
 @section('content')
+
+<div class="content container">
     <div class="main-word m-b-md text-center">
         <p>{{ $word->spelling }}</p>
     </div>
@@ -13,4 +15,6 @@
     <p class="from">
         {{ $word->from }}
     </p>
+</div>
+
 @endsection
