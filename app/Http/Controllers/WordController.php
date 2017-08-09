@@ -67,7 +67,7 @@ class WordController extends Controller
             $request->session()->flash('alert-message', 'Your word has been recorded! You can add another one right now.');
         } else {
             $request->session()->flash('alert-status', 'warning');
-            $request->session()->flash('alert-message', 'New words are not recorded in demo mode. Please register to add your own words!');
+            $request->session()->flash('alert-message', 'New words are not recorded in demo mode. Please <a href="/register" class="alert-link">register</a> to add your own words!');
         }
 
         return back();
