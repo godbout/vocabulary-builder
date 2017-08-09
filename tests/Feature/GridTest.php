@@ -34,26 +34,6 @@ class GridTest extends TestCase
 
     /** 
      * @test
-     * unauthenticated users can only access demo words
-     */
-    public function unauthenticated_users_can_only_access_demo_words()
-    {
-        $demoWord = App\Word::find(1);
-
-        $notDemoWord = factory(App\Word::class)->create([
-            'user_id' => 2
-        ]);
-
-        $this->get($demoWord->path())
-            ->assertStatus(200)
-            ->assertSee($demoWord->spelling);
-
-        $this->get($notDemoWord->path())
-            ->assertRedirect('/words');
-    }
-
-    /** 
-     * @test
      * an authenticated user can only see grid of his own words
      */
     public function an_authenticated_user_can_only_see_grid_of_his_own_words()
@@ -74,29 +54,16 @@ class GridTest extends TestCase
             ->assertDontSee(url($demoWord->path()));
     }
 
-    /** 
+    /**
      * @test
-     * an authenticated user can only access his own words
+     * authenticated users with no words see an informative message
      */
-    public function an_authenticated_user_can_only_access_his_own_words()
+    public function authenticated_users_with_no_words_see_an_informative_message()
     {
-        $user = App\User::find(2);
-        $this->be($user);
+        $this->be(factory(App\User::class)->create());
 
-        $userWord = factory(App\Word::class)->create([
-            'user_id' => $user->id,
-        ]);
-
-        $demoWord = factory(App\Word::class)->create([
-            'user_id' => 1,
-        ]);
-
-        $this->get($userWord->path())
-            ->assertStatus(200)
-            ->assertSee($userWord->spelling);
-
-        $this->get($demoWord->path())
-            ->assertRedirect('/words');
+        $this->get('/words')
+            ->assertSee('No words yet? Create some');
     }
 
     /** 
