@@ -31,7 +31,7 @@ class WordController extends Controller
 
         $words = $query->get();
 
-        return view('words.index', [
+        return view('words.grid', [
             'words' => $words,
         ]);
     }
@@ -43,7 +43,7 @@ class WordController extends Controller
      */
     public function create()
     {
-        //
+        return view('words.create');
     }
 
     /**
