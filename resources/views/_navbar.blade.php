@@ -24,6 +24,7 @@
                         <li><a href="{{ url('/random?count=10') }}">10</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ url('/words/create') }}">New</a></li>
                 <form action="{{ url('/words') }}" method="get" class="navbar-form navbar-left">
                     <div class="form-group">
                         <input id="searchInput" name="search" type="text" class="form-control" placeholder="Search">
