@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Word;
 
 class FlashcardController extends Controller
 {
     public function index()
     {
-        $word = Word::where('mastered', 0)
+        if (auth()->check() === true) {
+            $query = Word::where('user_id', '=', auth()->id());
+        } else {
+            $query = Word::where('user_id', '=', 1);
+        }
+
+        $word = $query->where('mastered', 0)
             ->inRandomOrder()
             ->first();
 
-        return view('words.flashcard' , [
+        return view('words.flashcard', [
             'word' => $word,
         ]);
     }
