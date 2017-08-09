@@ -21,6 +21,8 @@ class RandomWordsTest extends TestCase
     {
         /**
          * TODO
+         * Should be separated in several test cases
+         * If user has less words than asked, then we should show less words
          */
     }
 
