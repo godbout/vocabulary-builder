@@ -8,6 +8,20 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.position-ref {
+    position: relative;
+}
+
 .main-word {
     font-size: 84px;
 }
@@ -20,6 +34,11 @@
     font-size: 30px;
     font-weight: 500;
     background-color: darken($body-bg, 5%);
+}
+
+.nowords {
+    font-size: 30px;
+    font-weight: 200;
 }
 
 blockquote {
