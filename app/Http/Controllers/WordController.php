@@ -54,7 +54,23 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Auth::check()) {
+            Word::create([
+                'user_id'  => Auth::id(),
+                'spelling' => $request->spelling,
+                'meaning'  => $request->meaning,
+                'excerpt'  => $request->excerpt,
+                'from'     => $request->from,
+            ]);
+
+            $request->session()->flash('alert-status', 'success');
+            $request->session()->flash('alert-message', 'Your word has been recorded! You can add another one right now.');
+        } else {
+            $request->session()->flash('alert-status', 'warning');
+            $request->session()->flash('alert-message', 'New words are not recorded in demo mode. Please register to add your own words!');
+        }
+
+        return back();
     }
 
     /**
@@ -71,7 +87,7 @@ class WordController extends Controller
             return redirect('words');
         }
 
-        return view('words.show', [
+        return view('words.word', [
             'word' => $word,
         ]);
     }
@@ -102,7 +118,7 @@ class WordController extends Controller
         $word->save();
 
         $request->session()->flash('message_word', $word->spelling);
-        $request->session()->flash('message_rest', "mastered.");
+        $request->session()->flash('message_rest', 'mastered.');
 
         return redirect('flashcards');
     }
@@ -118,6 +134,9 @@ class WordController extends Controller
         //
     }
 
+    /**
+     * @param Word $word
+     */
     protected function userCanSee(Word $word)
     {
         if (!Auth::check() && $word->user_id != 1) {
