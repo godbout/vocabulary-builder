@@ -1,5 +1,10 @@
 <?php
 
+namespace Tests\Feature;
+
+use App;
+use Tests\TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class FlashcardTest extends TestCase
@@ -45,7 +50,7 @@ class FlashcardTest extends TestCase
             'user_id' => 1,
             'mastered' => false,
         ], 100);
-        
+
         $this->be($user = factory(App\User::class)->create());
 
         $word = factory(App\Word::class)->create([

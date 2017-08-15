@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+namespace Tests\Feature;
+
+use App;
+use Tests\TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ViewWordTest extends TestCase
 {
@@ -15,7 +18,7 @@ class ViewWordTest extends TestCase
         $this->artisan('db:seed');
     }
 
-    /** 
+    /**
      * @test
      * unauthenticated users can only access demo words
      */
@@ -35,7 +38,7 @@ class ViewWordTest extends TestCase
             ->assertRedirect('/words');
     }
 
-    /** 
+    /**
      * @test
      * an authenticated user can only access his own words
      */

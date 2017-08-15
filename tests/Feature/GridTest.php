@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+namespace Tests\Feature;
+
+use App;
+use Tests\TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GridTest extends TestCase
 {
@@ -15,7 +18,7 @@ class GridTest extends TestCase
         $this->artisan('db:seed');
     }
 
-    /** 
+    /**
      * @test
      * unauthenticated users can only see grid of demo words
      */
@@ -32,7 +35,7 @@ class GridTest extends TestCase
             ->assertDontSee(url($notDemoWord->path()));
     }
 
-    /** 
+    /**
      * @test
      * an authenticated user can only see grid of his own words
      */
@@ -66,12 +69,11 @@ class GridTest extends TestCase
             ->assertSee('No words yet? Create some');
     }
 
-    /** 
+    /**
      * @test
      * searching a term returns words of the user which spelling or excerpt contain the term
      */
     public function searching_a_term_returns_words_of_the_user_which_spelling_or_excerpt_contain_the_term()
     {
-        
     }
 }

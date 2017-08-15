@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+namespace Tests\Feature;
+
+use App;
+use Tests\TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CreateWordTest extends TestCase
 {
@@ -10,12 +13,14 @@ class CreateWordTest extends TestCase
 
     public function setUp()
     {
+        $array = ['something' => 'something else'];
+
         parent::setUp();
 
         $this->artisan('db:seed');
     }
 
-    /** 
+    /**
      * @test
      * unauthenticated users cannot record new word in database
      */
@@ -29,7 +34,7 @@ class CreateWordTest extends TestCase
         ]);
     }
 
-    /** 
+    /**
      * @test
      * an authenticated user can create word for themselves
      */

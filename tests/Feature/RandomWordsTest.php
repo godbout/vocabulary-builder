@@ -1,5 +1,10 @@
 <?php
 
+namespace Tests\Feature;
+
+use App;
+use Tests\TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class RandomWordsTest extends TestCase
