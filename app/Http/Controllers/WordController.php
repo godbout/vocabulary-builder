@@ -129,9 +129,30 @@ class WordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Word $word, Request $request)
     {
-        //
+        if (Auth::check()) {
+            if ($word->user_id == Auth::id()) {
+                $word->delete();
+
+                $request->session()->flash(
+                    'flash',
+                    "$word->spelling deleted."
+                );
+            } else {
+                $request->session()->flash(
+                    'flash',
+                    'You are not allowed to delete this word.'
+                );
+            }
+        } else {
+            $request->session()->flash(
+                'flash',
+                'Words cannot be deleted in demo mode. Please register to start recording your own words!'
+            );
+        }
+
+        return redirect('words');
     }
 
     /**

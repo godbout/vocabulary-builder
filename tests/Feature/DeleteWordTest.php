@@ -42,7 +42,7 @@ class DeleteWordTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $this->delete("/words/{$word->id}", $word->toArray());
+        $this->delete("/words/{$word->id}");
 
         $this->assertDatabaseMissing('words', ['id' => $word->id]);
     }
@@ -57,18 +57,18 @@ class DeleteWordTest extends TestCase
             'user_id' => 2
         ]);
 
-        $this->delete("/words/{$userWord->id}", $userWord->toArray());
+        $this->delete("/words/{$userWord->id}");
         $this->assertDatabaseHas('words', ['id' => $userWord->id]);
 
         $this->be(factory(App\User::class)->create());
-        $this->delete("/words/{$userWord->id}", $userWord->toArray());
+        $this->delete("/words/{$userWord->id}");
         $this->assertDatabaseHas('words', ['id' => $userWord->id]);
 
         $this->be(App\User::find(2));
         $demoWord = factory(App\Word::class)->create([
             'user_id' => 1
         ]);
-        $this->delete("/words/{$demoWord->id}", $demoWord->toArray());
+        $this->delete("/words/{$demoWord->id}");
         $this->assertDatabaseHas('words', ['id' => $demoWord->id]);
     }
 }
