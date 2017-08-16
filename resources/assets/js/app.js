@@ -30,5 +30,5 @@ Mousetrap.bind('u', function () {
 });
 
 Mousetrap.bind('d', function () {
-    document.getElementById('definition ModalButton').click();
+    document.getElementById('definitionModalButton').click();
 });
