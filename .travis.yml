@@ -6,7 +6,6 @@ php:
 
 env:
   matrix:
-    - PREFER_LOWEST="--prefer-lowest"
     - PREFER_LOWEST=""
 
 before_script:
