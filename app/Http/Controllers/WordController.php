@@ -116,17 +116,29 @@ class WordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Word $word, Request $request)
     {
-        $word = Word::find($id);
+        if (Auth::check()) {
+            if ($word->user_id == Auth::id()) {
+                $word->mastered = 1;
+                $word->save();
 
-        $word->mastered = 1;
-        $word->save();
-
-        $request->session()->flash('flash', [
-            'message' => "$word->spelling mastered.",
-            'type' => 'success'
-        ]);
+                $request->session()->flash('flash', [
+                    'message' => "$word->spelling mastered.",
+                    'type' => 'success'
+                ]);
+            } else {
+                $request->session()->flash('flash', [
+                    'message' => 'You are not allowed to master this word.',
+                    'success' => 'danger'
+                    ]);
+            }
+        } else {
+            $request->session()->flash('flash', [
+                'message' => 'Words cannot be mastered in demo mode. Please register to start recording your own words!',
+                'type' => 'warning',
+                ]);
+        }
 
         return redirect('flashcards');
     }
