@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('words', 'WordController', ['only' => [
-    'index', 'show', 'update', 'store', 'create'
-]]);
+Route::resource('words', 'WordController');
 
 Route::get('/random', 'RandomController@index');
 

@@ -1,4 +1,4 @@
-@extends('layouts/main')
+@extends('layouts.app')
 
 @section('title', 'the word — take good care of it')
 

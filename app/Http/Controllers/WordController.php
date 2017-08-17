@@ -72,7 +72,7 @@ class WordController extends Controller
             $request->session()->flash(
                 'flash', [
                     'message' => 'New words are not recorded in demo mode. Please register to add your own words!',
-                    'type' => 'warning',
+                    'type' => 'info',
                 ]);
         }
 
@@ -136,7 +136,7 @@ class WordController extends Controller
         } else {
             $request->session()->flash('flash', [
                 'message' => 'Words cannot be mastered in demo mode. Please register to start recording your own words!',
-                'type' => 'warning',
+                'type' => 'info',
                 ]);
         }
 
@@ -168,7 +168,7 @@ class WordController extends Controller
         } else {
             $request->session()->flash('flash', [
                 'message' => 'Words cannot be deleted in demo mode. Please register to start recording your own words!',
-                'type' => 'warning',
+                'type' => 'info',
                 ]);
         }
 

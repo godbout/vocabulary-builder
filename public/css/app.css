@@ -7670,6 +7670,10 @@ button.close {
   }
 }
 
+.container {
+  padding-top: 70px;
+}
+
 .flex-center {
   -webkit-box-align: center;
   align-items: center;
@@ -7752,8 +7756,12 @@ blockquote p {
   right: 10px;
 }
 
-#navbar-buffer {
-  padding-bottom: 70px;
+.suck-top {
+  padding-top: 0px;
+}
+
+.alert {
+  font-weight: normal;
 }
 
 /*# sourceMappingURL=app.css.map */
