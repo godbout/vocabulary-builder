@@ -6,9 +6,6 @@
 
 <div class="content container">
     <div class="row">
-        @if(Session::has('alert-message'))
-            <div id="saveWordMessage" class="alert alert-{{ Session::get('alert-status') }}" role="alert">{!! Session::get('alert-message') !!}</div>
-        @endif    
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Record New Word</div>

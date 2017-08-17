@@ -5,12 +5,6 @@
 @section('content')
 
     <div class="content container">
-        @if(Session::has('message_word'))
-            <div id="masteredMessage" class="alert alert-success" role="alert">
-                <strong>{{ Session::get('message_word') }}</strong> {{ Session::get('message_rest') }}
-            </div>
-        @endif
-
         @if($word)
             <div class="main-word m-b-md text-center">
                 <span>{{ $word->spelling }}</span>

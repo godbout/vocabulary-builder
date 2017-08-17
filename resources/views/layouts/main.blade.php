@@ -16,7 +16,7 @@
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
-                height: 100vh;
+                padding-bottom: 40px;
                 margin: 0;
             }
 
@@ -29,9 +29,13 @@
 
     </head>
     <body>
-        @include('_navbar')
+        <div id="app">
+            @include('_navbar')
 
-        @yield('content')
+            @yield('content')
+
+            <flash message="{{ session('flash.message') }}" type="{{ session('flash.type') }}"></flash>
+        </div>
     </body>
     <script src="/js/app.js"></script>
     <script src="/js/mousetrap.min.js"></script>

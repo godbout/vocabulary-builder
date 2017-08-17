@@ -14,11 +14,11 @@ require('./mousetrap.min.js');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example', require('./components/Example.vue'));
+Vue.component('flash', require('./components/Flash.vue'));
 
-// const app = new Vue({
-//     el: '#app'
-// });
+const app = new Vue({
+    el: '#app'
+});
 
 Mousetrap.bind('/', function (e) {
     e.preventDefault();

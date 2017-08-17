@@ -16,9 +16,12 @@
 <body>
     <div id="app">
         @include('_navbar')
+
         <div id="navbar-buffer"></div>
-        
+
         @yield('content')
+
+        <flash message="{{ session('flash.message') }}" type="{{ session('flash.type') }}"></flash>
     </div>
 
     <!-- Scripts -->

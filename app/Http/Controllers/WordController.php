@@ -63,11 +63,17 @@ class WordController extends Controller
                 'from'     => $request->from,
             ]);
 
-            $request->session()->flash('alert-status', 'success');
-            $request->session()->flash('alert-message', 'Your word has been recorded! You can add another one right now.');
+            $request->session()->flash(
+                'flash', [
+                    'message' => "$request->spelling recorded. You can add another word right now.",
+                    'type' => 'success',
+                ]);
         } else {
-            $request->session()->flash('alert-status', 'warning');
-            $request->session()->flash('alert-message', 'New words are not recorded in demo mode. Please <a href="/register" class="alert-link">register</a> to add your own words!');
+            $request->session()->flash(
+                'flash', [
+                    'message' => 'New words are not recorded in demo mode. Please register to add your own words!',
+                    'type' => 'warning',
+                ]);
         }
 
         return back();
@@ -117,8 +123,10 @@ class WordController extends Controller
         $word->mastered = 1;
         $word->save();
 
-        $request->session()->flash('message_word', $word->spelling);
-        $request->session()->flash('message_rest', 'mastered.');
+        $request->session()->flash('flash', [
+            'message' => "$word->spelling mastered.",
+            'type' => 'success'
+        ]);
 
         return redirect('flashcards');
     }
@@ -135,21 +143,21 @@ class WordController extends Controller
             if ($word->user_id == Auth::id()) {
                 $word->delete();
 
-                $request->session()->flash(
-                    'flash',
-                    "$word->spelling deleted."
-                );
+                $request->session()->flash('flash', [
+                    'message' => "$word->spelling deleted.",
+                    'type' => 'success'
+                    ]);
             } else {
-                $request->session()->flash(
-                    'flash',
-                    'You are not allowed to delete this word.'
-                );
+                $request->session()->flash('flash', [
+                    'message' => 'You are not allowed to delete this word.',
+                    'success' => 'danger'
+                    ]);
             }
         } else {
-            $request->session()->flash(
-                'flash',
-                'Words cannot be deleted in demo mode. Please register to start recording your own words!'
-            );
+            $request->session()->flash('flash', [
+                'message' => 'Words cannot be deleted in demo mode. Please register to start recording your own words!',
+                'type' => 'warning',
+                ]);
         }
 
         return redirect('words');
