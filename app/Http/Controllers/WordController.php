@@ -54,6 +54,11 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'spelling' => 'required',
+            'meaning' => 'required',
+        ]);
+
         if (Auth::check()) {
             Word::create([
                 'user_id'  => Auth::id(),

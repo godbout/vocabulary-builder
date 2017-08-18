@@ -13,8 +13,6 @@ class CreateWordTest extends TestCase
 
     public function setUp()
     {
-        $array = ['something' => 'something else'];
-
         parent::setUp();
 
         $this->artisan('db:seed');
@@ -48,5 +46,36 @@ class CreateWordTest extends TestCase
 
         $this->get("/words/{$word->id}")
             ->assertSee($word->spelling);
+    }
+
+    /**
+     * @test
+     * a word requires a spelling
+     */
+    public function a_word_requires_a_spelling()
+    {
+        $this->createWord([
+            'spelling' => null
+        ])->assertSessionHasErrors('spelling');
+    }
+
+    /**
+     * @test
+     * a word requires a meaning
+     */
+    public function a_word_requires_a_meaning()
+    {
+        $this->createWord([
+            'meaning' => null
+        ])->assertSessionHasErrors('meaning');
+    }
+
+    public function createWord($attributes)
+    {
+        $this->withExceptionHandling()->be($user = App\User::find(2));
+
+        $word = factory(App\Word::class)->make($attributes);
+
+        return $this->post('/words', $word->toArray());
     }
 }
