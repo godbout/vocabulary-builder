@@ -36,7 +36,7 @@
                             <h4 class="modal-title" id="usageModal">Usage of {{ $word->spelling }}</h4>
                         </div>
                         <div class="modal-body">
-                            <blockquote class="excerpt"">
+                            <blockquote class="excerpt">
                                 <p>{!! preg_replace("#$word->spelling(\w*)#", "<strong>$0</strong>", $word->excerpt) !!}</p>
                             </blockquote>
                             <p class="from">
