@@ -25,7 +25,7 @@
                             <label for="meaning" class="col-md-4 control-label">Meaning</label>
 
                             <div class="col-md-6">
-                                <textarea id="meaning" class="form-control" name="meaning" rows="4"></textarea>
+                                <textarea id="meaning" class="form-control" name="meaning" rows="4" value="{{ old('meaning') }}" required></textarea>
                             </div>
                         </div>
 
@@ -33,7 +33,7 @@
                             <label for="excerpt" class="col-md-4 control-label">Excerpt</label>
 
                             <div class="col-md-6">
-                                <textarea id="excerpt" class="form-control" name="excerpt" rows="4"></textarea>
+                                <textarea id="excerpt" class="form-control" name="excerpt" rows="4" value="{{ old('excerpt') }}"></textarea>
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
                             <label for="from" class="col-md-4 control-label">From</label>
 
                             <div class="col-md-6">
-                                <input id="from" type="text" class="form-control" name="from">
+                                <input id="from" type="text" class="form-control" name="from" value="{{ old('from') }}">
                             </div>
                         </div>
 
@@ -55,6 +55,13 @@
                     </form>
                 </div>
             </div>
+            @if (count($errors))
+                <ul class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
     </div>
 </div>
