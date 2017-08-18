@@ -12,7 +12,7 @@
 
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
-        
+
         <style>
             html, body {
                 background-color: #fff;
@@ -53,7 +53,7 @@
 
             <div class="content">
                 <div class="main-word m-b-md">
-                    vocabulary-builder 
+                    vocabulary-builder
                 </div>
 
                 <div class="links">
@@ -61,6 +61,7 @@
                     <a href="/flashcards">flashcards</a>
                     <a href="/random?count=5">randomizer</a>
                     <a href="/words/create">new</a>
+                    <a href="/faq">FAQ</a>
                 </div>
             </div>
         </div>

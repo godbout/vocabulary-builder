@@ -21,4 +21,8 @@ Route::get('/random', 'RandomController@index');
 
 Route::get('/flashcards', 'FlashcardController@index');
 
+Route::get('/faq', function () {
+    return view('faq');
+});
+
 Auth::routes();

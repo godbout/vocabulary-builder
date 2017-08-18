@@ -58,6 +58,7 @@
                         </ul>
                     </li>
                 @endif
+                <li><a href="{{ url('/faq') }}">FAQ</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
