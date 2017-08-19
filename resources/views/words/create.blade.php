@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'grid — more words for you')
+@section('title', 'new — record your own')
 
 @section('content')
 

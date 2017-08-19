@@ -62,7 +62,9 @@
                 </div>
             </div>
         @else
-            @include('words._nowords')
+            <div class="suck-top">
+                @include('words._nowords')
+            </div>
         @endif
     </div>
 @endsection
