@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'guill@sleeplessmind.com.mo',
-        'name' => 'Guill',
+        'address' => 'vb@sleeplessmind.com.mo',
+        'name' => 'vocabulary-builder',
     ],
 
     /*
