@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Word;
+use App\Policies\WordPolicy;
+
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        Word::class => WordPolicy::class,
     ];
 
     /**

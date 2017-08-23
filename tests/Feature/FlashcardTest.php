@@ -122,6 +122,8 @@ class FlashcardTest extends TestCase
      */
     public function users_cannot_master_the_words_of_others()
     {
+        $this->withExceptionHandling();
+
         $this->be(App\User::find(2));
 
         $demoWord = factory(App\Word::class)->create([
@@ -129,7 +131,9 @@ class FlashcardTest extends TestCase
             'mastered' => 0
         ]);
 
-        $this->patch('/words/1');
+        $this->patch('/words/1')
+            ->assertStatus(403);
+
         $this->assertDatabaseMissing('words', [
             'user_id' => 1,
             'mastered' => 1

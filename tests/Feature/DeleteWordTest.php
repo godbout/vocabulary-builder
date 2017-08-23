@@ -53,6 +53,8 @@ class DeleteWordTest extends TestCase
      */
     public function a_user_cannot_delete_a_word_that_doesnt_belong_to_them()
     {
+        $this->withExceptionHandling();
+
         $userWord = factory(App\Word::class)->create([
             'user_id' => 2
         ]);
@@ -61,7 +63,8 @@ class DeleteWordTest extends TestCase
         $this->assertDatabaseHas('words', ['id' => $userWord->id]);
 
         $this->be(factory(App\User::class)->create());
-        $this->delete("/words/{$userWord->id}");
+        $this->delete("/words/{$userWord->id}")
+            ->assertStatus(403);
         $this->assertDatabaseHas('words', ['id' => $userWord->id]);
 
         $this->be(App\User::find(2));

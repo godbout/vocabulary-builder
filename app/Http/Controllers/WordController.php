@@ -68,17 +68,15 @@ class WordController extends Controller
                 'from'     => $request->from,
             ]);
 
-            $request->session()->flash(
-                'flash', [
-                    'message' => "$request->spelling recorded. You can add another word right now.",
-                    'type' => 'success',
-                ]);
+            $request->session()->flash('flash', [
+                'message' => "$request->spelling recorded. You can add another word right now.",
+                'type' => 'success',
+            ]);
         } else {
-            $request->session()->flash(
-                'flash', [
-                    'message' => 'New words are not recorded in demo mode. Please register to add your own words!',
-                    'type' => 'info',
-                ]);
+            $request->session()->flash('flash', [
+                'message' => 'New words are not recorded in demo mode. Please register to add your own words!',
+                'type' => 'info',
+            ]);
         }
 
         return back();
@@ -87,15 +85,15 @@ class WordController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Word  $word
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Word $word)
     {
-        $word = Word::find($id);
-
-        if (!$this->userCanSee($word)) {
-            return redirect('words');
+        if (Auth::check()) {
+            $this->authorize('handle', $word);
+        } elseif ($word->user_id != 1) {
+            abort(403, 'You do not have the permission to view the words of others.');
         }
 
         return view('words.word', [
@@ -124,25 +122,20 @@ class WordController extends Controller
     public function update(Word $word, Request $request)
     {
         if (Auth::check()) {
-            if ($word->user_id == Auth::id()) {
-                $word->mastered = 1;
-                $word->save();
+            $this->authorize('handle', $word);
 
-                $request->session()->flash('flash', [
-                    'message' => "$word->spelling mastered.",
-                    'type' => 'success'
-                ]);
-            } else {
-                $request->session()->flash('flash', [
-                    'message' => 'You are not allowed to master this word.',
-                    'success' => 'danger'
-                    ]);
-            }
+            $word->mastered = 1;
+            $word->save();
+
+            $request->session()->flash('flash', [
+                'message' => "$word->spelling mastered.",
+                'type' => 'success'
+            ]);
         } else {
             $request->session()->flash('flash', [
                 'message' => 'Words cannot be mastered in demo mode. Please register to start recording your own words!',
                 'type' => 'info',
-                ]);
+            ]);
         }
 
         return redirect('flashcards');
@@ -157,19 +150,14 @@ class WordController extends Controller
     public function destroy(Word $word, Request $request)
     {
         if (Auth::check()) {
-            if ($word->user_id == Auth::id()) {
-                $word->delete();
+            $this->authorize('handle', $word);
 
-                $request->session()->flash('flash', [
-                    'message' => "$word->spelling deleted.",
-                    'type' => 'success'
-                    ]);
-            } else {
-                $request->session()->flash('flash', [
-                    'message' => 'You are not allowed to delete this word.',
-                    'success' => 'danger'
-                    ]);
-            }
+            $word->delete();
+
+            $request->session()->flash('flash', [
+                'message' => "$word->spelling deleted.",
+                'type' => 'success'
+                ]);
         } else {
             $request->session()->flash('flash', [
                 'message' => 'Words cannot be deleted in demo mode. Please register to start recording your own words!',
@@ -178,21 +166,5 @@ class WordController extends Controller
         }
 
         return redirect('words');
-    }
-
-    /**
-     * @param Word $word
-     */
-    protected function userCanSee(Word $word)
-    {
-        if (!Auth::check() && $word->user_id != 1) {
-            return false;
-        }
-
-        if (Auth::check() && (Auth::id() != $word->user_id)) {
-            return false;
-        }
-
-        return true;
     }
 }

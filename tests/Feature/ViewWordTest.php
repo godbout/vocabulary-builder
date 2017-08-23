@@ -24,6 +24,8 @@ class ViewWordTest extends TestCase
      */
     public function unauthenticated_users_can_only_access_demo_words()
     {
+        $this->withExceptionHandling();
+
         $demoWord = App\Word::find(1);
 
         $notDemoWord = factory(App\Word::class)->create([
@@ -35,7 +37,7 @@ class ViewWordTest extends TestCase
             ->assertSee($demoWord->spelling);
 
         $this->get($notDemoWord->path())
-            ->assertRedirect('/words');
+            ->assertStatus(403);
     }
 
     /**
@@ -44,6 +46,8 @@ class ViewWordTest extends TestCase
      */
     public function an_authenticated_user_can_only_access_his_own_words()
     {
+        $this->withExceptionHandling();
+
         $user = App\User::find(2);
         $this->be($user);
 
@@ -60,6 +64,6 @@ class ViewWordTest extends TestCase
             ->assertSee($userWord->spelling);
 
         $this->get($demoWord->path())
-            ->assertRedirect('/words');
+            ->assertStatus(403);
     }
 }
