@@ -74,8 +74,8 @@ class CreateWordTest extends TestCase
     {
         $this->withExceptionHandling()->be($user = App\User::find(2));
 
-        $word = factory(App\Word::class)->make($attributes);
+        $word = factory(App\Word::class)->raw($attributes);
 
-        return $this->post('/words', $word->toArray());
+        return $this->post('/words', $word);
     }
 }
