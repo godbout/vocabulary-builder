@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Word;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
@@ -15,11 +14,7 @@ class WordController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::check() === true) {
-            $query = Word::where('user_id', '=', Auth::id());
-        } else {
-            $query = Word::where('user_id', '=', 1);
-        }
+        $query = Word::query();
 
         if ($request->has('search') === true) {
             $term = $request->input('search');
@@ -59,9 +54,9 @@ class WordController extends Controller
             'meaning' => 'required',
         ]);
 
-        if (Auth::check()) {
+        if (auth()->check()) {
             Word::create([
-                'user_id'  => Auth::id(),
+                'user_id'  => auth()->id(),
                 'spelling' => $request->spelling,
                 'meaning'  => $request->meaning,
                 'excerpt'  => $request->excerpt,
@@ -90,26 +85,13 @@ class WordController extends Controller
      */
     public function show(Word $word)
     {
-        if (Auth::check()) {
+        if (auth()->check()) {
             $this->authorize('handle', $word);
-        } elseif ($word->user_id != 1) {
-            abort(403, 'You do not have the permission to view the words of others.');
         }
 
         return view('words.word', [
             'word' => $word,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -121,7 +103,7 @@ class WordController extends Controller
      */
     public function update(Word $word, Request $request)
     {
-        if (Auth::check()) {
+        if (auth()->check()) {
             $this->authorize('handle', $word);
 
             $word->mastered = 1;
@@ -149,7 +131,7 @@ class WordController extends Controller
      */
     public function destroy(Word $word, Request $request)
     {
-        if (Auth::check()) {
+        if (auth()->check()) {
             $this->authorize('handle', $word);
 
             $word->delete();

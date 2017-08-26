@@ -64,7 +64,7 @@ class DeleteWordTest extends TestCase
 
         $this->be(factory(App\User::class)->create());
         $this->delete("/words/{$userWord->id}")
-            ->assertStatus(403);
+            ->assertStatus(404);
         $this->assertDatabaseHas('words', ['id' => $userWord->id]);
 
         $this->be(App\User::find(2));

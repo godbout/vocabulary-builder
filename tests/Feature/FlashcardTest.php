@@ -84,6 +84,7 @@ class FlashcardTest extends TestCase
     public function guests_cannot_master_words()
     {
         $demoWord = factory(App\Word::class)->create([
+            'user_id' => 1,
             'mastered' => 0
         ]);
 
@@ -132,11 +133,6 @@ class FlashcardTest extends TestCase
         ]);
 
         $this->patch('/words/1')
-            ->assertStatus(403);
-
-        $this->assertDatabaseMissing('words', [
-            'user_id' => 1,
-            'mastered' => 1
-        ]);
+            ->assertStatus(404);
     }
 }
