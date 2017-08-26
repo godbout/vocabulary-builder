@@ -22,4 +22,10 @@ class Word extends Model
     {
         return '/words/' . $this->id;
     }
+
+    public function master()
+    {
+        $this->mastered = 1;
+        $this->save();
+    }
 }

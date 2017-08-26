@@ -106,8 +106,7 @@ class WordController extends Controller
         if (auth()->check()) {
             $this->authorize('handle', $word);
 
-            $word->mastered = 1;
-            $word->save();
+            $this->master($word);
 
             $request->session()->flash('flash', [
                 'message' => "$word->spelling mastered.",
@@ -148,5 +147,10 @@ class WordController extends Controller
         }
 
         return redirect('words');
+    }
+
+    protected function master(Word $word)
+    {
+        $word->master();
     }
 }
