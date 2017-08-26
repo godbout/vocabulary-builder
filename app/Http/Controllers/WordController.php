@@ -14,20 +14,8 @@ class WordController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Word::query();
-
-        if ($request->has('search') === true) {
-            $term = $request->input('search');
-            $query->where(function ($query) use ($term) {
-                $query->where('spelling', 'LIKE', '%' . $term . '%')
-                    ->orWhere('excerpt', 'LIKE', '%' . $term . '%');
-            });
-        }
-
-        $words = $query->get();
-
         return view('words.grid', [
-            'words' => $words,
+            'words' => $this->getWords(),
         ]);
     }
 
@@ -152,5 +140,14 @@ class WordController extends Controller
     protected function master(Word $word)
     {
         $word->master();
+    }
+
+    protected function getWords()
+    {
+        /**
+         * Global scopes handle whether the user is guest or auth
+         * and whether a search term is used
+         */
+        return Word::all();
     }
 }
