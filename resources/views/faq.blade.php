@@ -55,8 +55,12 @@
                 <p class="lead">— <a href="{{ url('/words#searchInput') }}"><strong>Search</strong></a> to filter through your words. Filters by spelling or excerpt. —</p>
 
                 <div class="main-word m-b-md text-center">Keyboard Shorcuts</div>
-                <p class="lead">— Every time you see the menu at the bottom, press "/" to go straight to the <a href="{{ url('/words#searchInput') }}"><strong>search</strong></a> field, and start typing. Enter to filter. —</p>
+                <p class="lead">— Every time you see the menu at the bottom, press "/" to go straight to the <a href="{{ url('/words#searchInput') }}"><strong>search</strong></a> field, and start typing. Then press enter to filter. —</p>
                 <p class="lead">— In <a href="{{ url('/flashcards') }}"><strong>flashcards</strong></a> mode, press "u" to show the word usage; press "d" to show the word definition. —</p>
+
+                <p id="version">
+                    <small>vocabulary-builder version 0.1.0</small>
+                </p>
 
             </div>
         </div>
