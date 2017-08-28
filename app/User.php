@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Word::class);
     }
+
+    public function addWord($word)
+    {
+        $this->words()->create($word);
+    }
 }

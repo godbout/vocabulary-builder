@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Word;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
@@ -43,13 +44,7 @@ class WordController extends Controller
         ]);
 
         if (auth()->check()) {
-            Word::create([
-                'user_id'  => auth()->id(),
-                'spelling' => $request->spelling,
-                'meaning'  => $request->meaning,
-                'excerpt'  => $request->excerpt,
-                'from'     => $request->from,
-            ]);
+            auth()->user()->addWord($request->toArray());
 
             $request->session()->flash('flash', [
                 'message' => "$request->spelling recorded. You can add another word right now.",

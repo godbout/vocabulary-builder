@@ -28,6 +28,11 @@ class Word extends Model
         });
     }
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function path()
     {
         return '/words/' . $this->id;
