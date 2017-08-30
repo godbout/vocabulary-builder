@@ -78,4 +78,25 @@ class CreateWordTest extends TestCase
 
         return $this->post('/words', $word);
     }
+
+    /**
+     * @test
+     * from field is prefilled with latest word data if any
+     */
+    public function from_field_is_prefilled_with_latest_word_data_if_any()
+    {
+        $word = factory(App\Word::class)->create(['user_id' => 1]);
+        $this->get('/words/create')
+            ->assertViewHas('lastFrom', $word->from);
+
+        $newUser = factory(App\User::class)->create();
+        $this->be($newUser);
+
+        $this->get('/words/create')
+            ->assertViewHas('lastFrom', null);
+
+        $newUserWord = factory(App\Word::class)->create(['user_id' => $newUser->id]);
+        $this->get('/words/create')
+            ->assertViewHas('lastFrom', $newUserWord->from);
+    }
 }

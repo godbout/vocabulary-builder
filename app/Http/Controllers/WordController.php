@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,11 @@ class WordController extends Controller
      */
     public function create()
     {
-        return view('words.create');
+        $lastWord = Word::orderBy('id', 'desc')->first();
+
+        return view('words.create', [
+            'lastFrom' => $lastWord->from ?? null,
+        ]);
     }
 
     /**

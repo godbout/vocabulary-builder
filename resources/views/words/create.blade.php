@@ -41,7 +41,7 @@
                             <label for="from" class="col-md-4 control-label">From</label>
 
                             <div class="col-md-6">
-                                <input id="from" type="text" class="form-control" name="from" value="{{ old('from') }}">
+                                <input id="from" type="text" class="form-control" name="from" value="{{ old('from', $lastFrom) }}">
                             </div>
                         </div>
 
