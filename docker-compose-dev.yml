@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  vb:
+    volumes:
+      - vb_sync:/srv/www/vb/public_html:nocopy
+volumes:
+    vb_sync:
+        external: true
+    dbdata-ums:
+        external: true
