@@ -35,7 +35,9 @@
 
             @yield('content')
 
-            <flash message="{{ session('flash.message') }}" type="{{ session('flash.type') }}"></flash>
+            @if (session('message_partial'))
+                @include(session('message_partial'), (array) session('message_data'))
+            @endif
         </div>
 
         <!-- Scripts -->

@@ -14,7 +14,7 @@ require('./mousetrap.min.js');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('flash', require('./components/Flash.vue'));
+// Vue.component('flash', require('./components/Flash.vue'));
 
 const app = new Vue({
     el: '#app'

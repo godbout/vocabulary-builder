@@ -14,7 +14,7 @@
             </div>
 
             <div class="row">
-                <div class="col-12-md">
+                <div class="col-md-12">
                     <!-- Button trigger modal -->
                     <button id="usageModalButton" type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#usageModal">
                       Show Usage

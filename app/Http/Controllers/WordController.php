@@ -51,15 +51,10 @@ class WordController extends Controller
         if (auth()->check()) {
             auth()->user()->addWord($request->toArray());
 
-            $request->session()->flash('flash', [
-                'message' => "$request->spelling recorded. You can add another word right now.",
-                'type' => 'success',
-            ]);
+            $request->session()->flash('message_partial', 'messages.added');
+            $request->session()->flash('message_data', ['spelling' => $request->spelling]);
         } else {
-            $request->session()->flash('flash', [
-                'message' => 'New words are not recorded in demo mode. Please register to add your own words!',
-                'type' => 'info',
-            ]);
+            $request->session()->flash('message_partial', 'messages.added_demo');
         }
 
         return back();
@@ -96,15 +91,10 @@ class WordController extends Controller
 
             $this->master($word);
 
-            $request->session()->flash('flash', [
-                'message' => "$word->spelling mastered.",
-                'type' => 'success'
-            ]);
+            $request->session()->flash('message_partial', 'messages.mastered');
+            $request->session()->flash('message_data', ['spelling' => $word->spelling]);
         } else {
-            $request->session()->flash('flash', [
-                'message' => 'Words cannot be mastered in demo mode. Please register to start recording your own words!',
-                'type' => 'info',
-            ]);
+            $request->session()->flash('message_partial', 'messages.mastered_demo');
         }
 
         return redirect('flashcards');
@@ -123,15 +113,10 @@ class WordController extends Controller
 
             $word->delete();
 
-            $request->session()->flash('flash', [
-                'message' => "$word->spelling deleted.",
-                'type' => 'success'
-                ]);
+            $request->session()->flash('message_partial', 'messages.deleted');
+            $request->session()->flash('message_data', ['spelling' => $word->spelling]);
         } else {
-            $request->session()->flash('flash', [
-                'message' => 'Words cannot be deleted in demo mode. Please register to start recording your own words!',
-                'type' => 'info',
-                ]);
+            $request->session()->flash('message_partial', 'messages.deleted_demo');
         }
 
         return redirect('words');

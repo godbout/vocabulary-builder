@@ -99,6 +99,12 @@ blockquote p {
   font-weight: normal;
 }
 
+.alert-flash {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
 #version {
   margin-top: 50px;
 }
