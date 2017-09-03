@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>v-b — because learn some more</title>
+        <title>faq — become expert in using vb</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -56,10 +56,10 @@
 
                 <div class="main-word m-b-md text-center">Keyboard Shorcuts</div>
                 <p class="lead">— Every time you see the menu at the bottom, press "/" to go straight to the <a href="{{ url('/words#searchInput') }}"><strong>search</strong></a> field, and start typing. Then press enter to filter. —</p>
-                <p class="lead">— In <a href="{{ url('/flashcards') }}"><strong>flashcards</strong></a> mode, press "u" to show the word usage; press "d" to show the word definition. —</p>
+                <p class="lead">— In <a href="{{ url('/flashcards') }}"><strong>flashcards</strong></a> mode, press "u" to show the word usage; press "d" to show the word definition. Press "r", "&larr;" or "&rarr;" to get another flashcard. —</p>
 
                 <p id="version">
-                    <small>vocabulary-builder version 0.1.0</small>
+                    <small>vocabulary-builder version 0.1.1</small>
                 </p>
 
             </div>
