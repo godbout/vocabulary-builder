@@ -1,3 +1,7 @@
-<div class="alert alert-flash alert-success fade in" role="alert">
+@extends('layouts.messages')
+
+@section('type', 'success')
+
+@section('body')
     <strong>{{ $spelling }}</strong> mastered.
-</div>
+@endsection
