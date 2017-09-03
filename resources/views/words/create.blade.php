@@ -13,19 +13,31 @@
                     <form class="form-horizontal" method="POST" action="{{ url('/words') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('spelling') ? ' has-error' : '' }}">
                             <label for="spelling" class="col-md-4 control-label">Spelling</label>
 
                             <div class="col-md-6">
                                 <input id="spelling" type="text" class="form-control" name="spelling" value="{{ old('spelling') }}" required autofocus>
+
+                                @if ($errors->has('spelling'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('spelling') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('meaning') ? ' has-error' : '' }}">
                             <label for="meaning" class="col-md-4 control-label">Meaning</label>
 
                             <div class="col-md-6">
                                 <textarea id="meaning" class="form-control" name="meaning" rows="4" value="{{ old('meaning') }}" required></textarea>
+
+                                @if ($errors->has('meaning'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('meaning') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
@@ -55,13 +67,6 @@
                     </form>
                 </div>
             </div>
-            @if (count($errors))
-                <ul class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
         </div>
     </div>
 </div>
