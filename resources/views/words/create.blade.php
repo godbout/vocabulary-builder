@@ -31,7 +31,7 @@
                             <label for="meaning" class="col-md-4 control-label">Meaning</label>
 
                             <div class="col-md-6">
-                                <textarea id="meaning" class="form-control" name="meaning" rows="4" value="{{ old('meaning') }}" required></textarea>
+                                <textarea id="meaning" class="form-control" name="meaning" rows="4" required>{{ old('meaning') }}</textarea>
 
                                 @if ($errors->has('meaning'))
                                     <span class="help-block">
@@ -45,7 +45,7 @@
                             <label for="excerpt" class="col-md-4 control-label">Excerpt</label>
 
                             <div class="col-md-6">
-                                <textarea id="excerpt" class="form-control" name="excerpt" rows="4" value="{{ old('excerpt') }}"></textarea>
+                                <textarea id="excerpt" class="form-control" name="excerpt" rows="4">{{ old('excerpt') }}</textarea>
                             </div>
                         </div>
 
