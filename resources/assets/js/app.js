@@ -32,3 +32,7 @@ Mousetrap.bind('u', function () {
 Mousetrap.bind('d', function () {
     document.getElementById('definitionModalButton').click();
 });
+
+Mousetrap.bind(['left', 'right', 'r'], function () {
+    location.reload();
+});

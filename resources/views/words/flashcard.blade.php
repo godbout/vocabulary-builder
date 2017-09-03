@@ -6,6 +6,9 @@
 
     <div class="content container">
         @if($word)
+            <a href="/flashcards"><span class="glyphicon glyphicon-chevron-left pull-left"></span></a>
+            <a href="/flashcards"><span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+
             <div class="main-word m-b-md text-center">
                 <span>{{ $word->spelling }}</span>
             </div>
