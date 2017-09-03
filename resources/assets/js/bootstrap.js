@@ -33,6 +33,6 @@ Vue.http.interceptors.push((request, next) => {
 
 window.events = new Vue();
 
-window.flash = function (message) {
-    window.events.$emit('flash', message);
-}
+// window.flash = function (message) {
+//     window.events.$emit('flash', message);
+// }

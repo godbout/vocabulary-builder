@@ -36,3 +36,7 @@ Mousetrap.bind('d', function () {
 Mousetrap.bind(['left', 'right', 'r'], function () {
     location.reload();
 });
+
+window.setTimeout( function () {
+    $('.alert-flash').removeClass('in');
+}, 6000);
