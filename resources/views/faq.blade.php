@@ -45,7 +45,7 @@
     <body>
         <div class="flex-center position-ref full-height">
 
-            <div class="content">
+            <div class="content container">
 
                 <div class="main-word m-b-md text-center">Usage</div>
                 <p class="lead">— <a href="{{ url('/words') }}"><strong>Grid</strong></a> to see your whole list of words. Words you mastered are shown in green color. —</p>
@@ -59,7 +59,7 @@
                 <p class="lead">— In <a href="{{ url('/flashcards') }}"><strong>flashcards</strong></a> mode, press "u" to show the word usage; press "d" to show the word definition. Press "r", "&larr;" or "&rarr;" to get another flashcard. —</p>
 
                 <p id="version">
-                    <small>vocabulary-builder version 0.1.1</small>
+                    <small>vocabulary-builder version 0.2.0</small>
                 </p>
 
             </div>
