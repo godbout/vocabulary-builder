@@ -28,7 +28,7 @@ $factory->define(App\Word::class, function (Faker\Generator $faker) {
         'user_id' => function () {
             return factory(App\User::class)->create()->id;
         },
-        'spelling' => $faker->word,
+        'spelling' => $faker->words(mt_rand(1, 2), true),
         'meaning' => $faker->sentence(mt_rand(6, 15), true),
         'excerpt' => $faker->paragraph(mt_rand(3, 9)),
         'from' => $faker->name . ' — ' .implode(' ', array_map('ucfirst', $faker->words(mt_rand(3, 10)))),

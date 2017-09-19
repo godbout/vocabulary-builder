@@ -47,6 +47,7 @@ class GridTest extends TestCase
         $userWord = factory(App\Word::class)->create([
             'user_id' => $user->id,
         ]);
+        $userWord->fresh();
 
         $demoWord = factory(App\Word::class)->create([
             'user_id' => 1,

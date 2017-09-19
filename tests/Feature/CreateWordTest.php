@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App;
 use Tests\TestCase;
-
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreateWordTest extends TestCase
@@ -38,13 +37,16 @@ class CreateWordTest extends TestCase
      */
     public function an_authenticated_user_can_create_word_for_themselves()
     {
-        $this->be(App\User::find(2));
+        $this->be($user = App\User::find(2));
 
-        $word = factory(App\Word::class)->make();
+        $word = factory(App\Word::class)->make([
+            'user_id' => $user->id,
+            'spelling' => 'hello',
+        ]);
 
         $this->post('/words', $word->toArray());
 
-        $this->get("/words/{$word->id}")
+        $this->get($word->path())
             ->assertSee($word->spelling);
     }
 
@@ -81,9 +83,9 @@ class CreateWordTest extends TestCase
 
     /**
      * @test
-     * from field is prefilled with latest word data if any
+     * form field is prefilled with latest word data if any
      */
-    public function from_field_is_prefilled_with_latest_word_data_if_any()
+    public function form_field_is_prefilled_with_latest_word_data_if_any()
     {
         $word = factory(App\Word::class)->create(['user_id' => 1]);
         $this->get('/words/create')
@@ -98,5 +100,27 @@ class CreateWordTest extends TestCase
         $newUserWord = factory(App\Word::class)->create(['user_id' => $newUser->id]);
         $this->get('/words/create')
             ->assertViewHas('lastFrom', $newUserWord->from);
+    }
+
+    /**
+     * @test
+     * a unique slug is created when a word is recorded
+     */
+    public function a_unique_slug_is_created_when_a_word_is_created()
+    {
+        $this->be(App\User::find(2));
+
+        $word = factory(App\Word::class)->make([
+            'spelling' => "trompe l'oeil",
+        ]);
+
+        $this->post('/words', $word->toArray());
+        $this->assertDatabaseHas('words', ['slug' => 'trompe-loeil']);
+
+        $this->post('/words', $word->toArray());
+        $this->assertDatabaseHas('words', ['slug' => 'trompe-loeil-2']);
+
+        $this->post('/words', $word->toArray());
+        $this->assertDatabaseHas('words', ['slug' => 'trompe-loeil-3']);
     }
 }

@@ -34,7 +34,7 @@ class FlashcardTest extends TestCase
             'user_id' => $user->id,
         ], 100);
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 69; $i++) {
             $this->get('/flashcards')
                 ->assertSee($demoWord->spelling);
         }
@@ -88,7 +88,7 @@ class FlashcardTest extends TestCase
             'mastered' => 0
         ]);
 
-        $this->patch("/words/$demoWord->id");
+        $this->patch($demoWord->path());
         $this->assertDatabaseMissing('words', [
             'id' => $demoWord->id,
             'mastered' => 1
@@ -109,7 +109,7 @@ class FlashcardTest extends TestCase
             'mastered' => 0
         ]);
 
-        $this->patch("/words/$word->id");
+        $this->patch($word->path());
         $this->assertDatabaseHas('words', [
             'id' => $word->id,
             'mastered' => 1

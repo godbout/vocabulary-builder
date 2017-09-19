@@ -25,7 +25,7 @@ class DeleteWordTest extends TestCase
     {
         $word = App\Word::find(1);
 
-        $this->delete("/words/{$word->id}", $word->toArray());
+        $this->delete($word->path(), $word->toArray());
 
         $this->assertDatabaseHas('words', ['id' => 1]);
     }
@@ -42,7 +42,7 @@ class DeleteWordTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $this->delete("/words/{$word->id}");
+        $this->delete($word->path());
 
         $this->assertDatabaseMissing('words', ['id' => $word->id]);
     }

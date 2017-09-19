@@ -26,6 +26,15 @@ class Word extends Model
                 });
             }
         });
+
+        static::creating(function ($word) {
+            $word->slug = $word->spelling;
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     public function owner()
@@ -35,12 +44,25 @@ class Word extends Model
 
     public function path()
     {
-        return '/words/' . $this->id;
+        return '/words/' . $this->slug;
     }
 
     public function master()
     {
         $this->mastered = 1;
         $this->save();
+    }
+
+    public function setSlugAttribute($value)
+    {
+        $slug = str_slug($value);
+        $original = $slug;
+        $count = 2;
+
+        while (static::withoutGlobalScope('user_id')->whereSlug($slug)->exists()) {
+            $slug = "$original-" . $count++;
+        }
+
+        $this->attributes['slug'] = $slug;
     }
 }
