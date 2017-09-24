@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/updatedb', 'WordController@updatedb');
+
 Route::get('/', function () {
     return view('welcome');
 });
