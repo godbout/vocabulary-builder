@@ -19,7 +19,7 @@
 
     <div class="row">
         <div class="pull-right" style="padding-top:70px;">
-            <form method="POST" action="/words/{{ $word->id }}">
+            <form method="POST" action="{{ $word->path() }}">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
 
