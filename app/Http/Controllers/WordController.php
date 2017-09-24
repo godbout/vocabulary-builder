@@ -135,13 +135,4 @@ class WordController extends Controller
          */
         return Word::all();
     }
-
-    public function updatedb()
-    {
-        $words = Word::all();
-        foreach ($words as $word) {
-            $word->slug = $word->spelling;
-            $word->save();
-        }
-    }
 }
