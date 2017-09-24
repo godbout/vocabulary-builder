@@ -73,4 +73,23 @@ class RandomWordsTest extends TestCase
         $this->get('/random')
             ->assertSee('No words yet? Create some');
     }
+
+    /**
+     * @test
+     * words given by the randomizer are accessible
+     */
+    public function words_given_by_the_randomizer_are_accessible()
+    {
+        $this->be($user = factory(App\User::class)->create());
+
+        $word = factory(App\Word::class)->make([
+            'spelling' => 'new spelling',
+        ]);
+
+        $this->post('/words', $word->toArray());
+
+        $this->get('/random?count=1000')
+            ->assertDontSee('/words/1')
+            ->assertSee('/words/new-spelling');
+    }
 }
