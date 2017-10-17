@@ -24,7 +24,7 @@
                       Show Definition
                     </button>
 
-                    {!! Form::open(['url' => 'words/' .$word->id, 'method' => 'patch', 'style' => 'display: inline;']) !!}
+                    {!! Form::open(['url' => 'words/' .$word->slug, 'method' => 'patch', 'style' => 'display: inline;']) !!}
                         <button type="submit" class="btn btn-success btn-lg">Mark as Mastered</button>
                     {!! Form::close() !!}
                 </div>
