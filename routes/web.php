@@ -33,3 +33,7 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
+
+Route::get('/faq', function () {
+    return view('faq');
+});
