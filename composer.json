@@ -11,7 +11,7 @@
     "require": {
         "php": "^8.3",
         "laravel/fortify": "^1.36",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^13.0",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.1.1",
         "livewire/volt": "^1.7.0"
